@@ -1,0 +1,29 @@
+version: "3.4"
+
+services:
+  frontend:
+    image: react:latest
+    container_name: react
+    build: ./
+    ports:
+      - 3000:3000
+
+  backend:
+    image: aspnetapp:latest
+    build: ../../module6hw1
+    container_name: aspnetapp
+    ports:
+      - 3333:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+networks:
+  default:
+    driver: bridge
+    internal: false
+    attachable: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.0.4/24
+          gateway: 192.168.0.4
